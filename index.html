@@ -164,3 +164,39 @@
   </script>
 </body>
 </html>
+<section id="liens">
+  <h2>🔗 Liens Utiles</h2>
+  <ul id="liste-liens">
+    <li>Chargement des liens...</li>
+  </ul>
+</section>
+
+<script>
+  async function chargerLiens() {
+    try {
+      // Remplace ce lien par le lien de ton Google Sheet publié en CSV
+      const sheetURL = "https://docs.google.com/spreadsheets/d/e/TON_ID_PUBLIÉ/pub?output=csv";
+      const response = await fetch(sheetURL);
+      const csv = await response.text();
+      
+      // Convertir CSV en tableau
+      const lignes = csv.split("\n").slice(1); // ignore la première ligne (titres)
+      const container = document.getElementById("liste-liens");
+      container.innerHTML = "";
+
+      lignes.forEach(ligne => {
+        const [nom, url] = ligne.split(",");
+        if(nom && url){
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="${url}" target="_blank">${nom}</a>`;
+          container.appendChild(li);
+        }
+      });
+    } catch (err) {
+      document.getElementById("liste-liens").innerHTML = "<li>Impossible de charger les liens 😢</li>";
+    }
+  }
+
+  chargerLiens();
+</script>
+
