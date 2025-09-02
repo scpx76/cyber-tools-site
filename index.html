@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberProtect - Sécurité en ligne</title>
+  <style>
+    body { font-family: Arial; background: #f4f4f4; margin:0; padding:20px; }
+    header, section, footer { background: white; padding: 20px; margin-bottom: 20px; border-radius:8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+    h1,h2,h3 { color:#333; }
+    a { color:#0077cc; text-decoration:none; }
+    a:hover { text-decoration: underline; }
+    .news { border-bottom:1px solid #ddd; padding:10px 0; }
+    .result { background:#eef; padding:10px; border-radius:5px; margin-top:10px;}
+    button { padding:10px; margin-top:5px;}
+  </style>
+</head>
+<body>
+  <!-- Page d'accueil -->
+  <header>
+    <h1>🔒 CyberProtect</h1>
+    <p>Notre mission : aider les gens à se protéger en ligne.</p>
+    <p><strong>⚠️ Alerte récente :</strong> Nouvelle vague de phishing sur WhatsApp.</p>
+  </header>
+
+  <!-- Section Astuces & Guides -->
+  <section id="astuces">
+    <h2>🛡️ Astuces & Guides</h2>
+    <ul>
+      <li><a href="#motdepasse">Comment créer un mot de passe sécurisé</a></li>
+      <li><a href="#email">Comment reconnaître un email frauduleux</a></li>
+      <li><a href="#phishing">Comment éviter le phishing / smishing / vishing</a></li>
+      <li><a href="#reseaux">Astuces pour protéger ses réseaux sociaux</a></li>
+    </ul>
+
+    <section id="motdepasse">
+      <h3>Créer un mot de passe sécurisé</h3>
+      <p>Un mot de passe sûr doit contenir :</p>
+      <ul>
+        <li>Au moins 12 caractères</li>
+        <li>Chiffres, lettres majuscules et minuscules</li>
+        <li>Caractères spéciaux</li>
+        <li>Pas de mots communs ou dates de naissance</li>
+      </ul>
+    </section>
+
+    <section id="email">
+      <h3>Reconnaître un email frauduleux</h3>
+      <ul>
+        <li>Vérifier l’adresse de l’expéditeur</li>
+        <li>Fautes d’orthographe</li>
+        <li>Liens suspects (survolez avant de cliquer)</li>
+      </ul>
+    </section>
+
+    <section id="phishing">
+      <h3>Éviter le phishing / smishing / vishing</h3>
+      <ul>
+        <li>Ne jamais cliquer sur des liens suspects</li>
+        <li>Ne pas divulguer ses informations personnelles</li>
+        <li>Vérifier les sites et contacts avant toute action</li>
+      </ul>
+    </section>
+
+    <section id="reseaux">
+      <h3>Protéger ses réseaux sociaux</h3>
+      <ul>
+        <li>Activer la double authentification</li>
+        <li>Limiter les informations publiques</li>
+        <li>Changer régulièrement les mots de passe</li>
+      </ul>
+    </section>
+  </section>
+
+  <!-- Section Outils Gratuits -->
+  <section id="outils">
+    <h2>⚙️ Outils Gratuits</h2>
+    <h3>Générateur de mot de passe et test de robustesse</h3>
+    <button onclick="genererMotDePasse()">Générer un mot de passe fort</button>
+    <div class="result" id="password"></div>
+    <button onclick="testerMotDePasse()">Tester la robustesse (simulation)</button>
+    <div class="result" id="test"></div>
+  </section>
+
+  <!-- Section Alertes de Sécurité -->
+  <section id="alertes">
+    <h2>🚨 Alertes de Sécurité</h2>
+    <div id="news-container">
+      <p>Chargement des actualités cybersécurité...</p>
+    </div>
+  </section>
+
+  <!-- Section Protection Avancée -->
+  <section id="protection">
+    <h2>🔐 Protection Avancée</h2>
+    <ul>
+      <li>Présentation des outils existants (VPN, antivirus, gestionnaires de mots de passe)</li>
+      <li>Tutoriels pour installer/configurer ces protections</li>
+    </ul>
+  </section>
+
+  <!-- Section Communauté -->
+  <section id="communaute">
+    <h2>👥 Espace Communauté</h2>
+    <p>Bientôt disponible : forum et espace de partage d’expériences.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 CyberProtect - Sécurité en ligne</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Générateur et test de mot de passe
+    let currentPassword = "";
+
+    function genererMotDePasse() {
+      const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+{}[]";
+      let password = "";
+      for(let i=0;i<16;i++){ password += chars.charAt(Math.floor(Math.random()*chars.length)); }
+      currentPassword = password;
+      document.getElementById("password").innerText = "Mot de passe généré : " + password;
+      document.getElementById("test").innerText = "";
+    }
+
+    function testerMotDePasse() {
+      if(!currentPassword){ alert("Génère d'abord un mot de passe !"); return; }
+      let score=0;
+      if(currentPassword.length>=12) score+=2;
+      if(/[A-Z]/.test(currentPassword)) score+=1;
+      if(/[a-z]/.test(currentPassword)) score+=1;
+      if(/[0-9]/.test(currentPassword)) score+=1;
+      if(/[\W_]/.test(currentPassword)) score+=1;
+
+      let force = "";
+      if(score<=2) force="Faible 🔴";
+      else if(score<=4) force="Moyen 🟠";
+      else force="Fort 🟢";
+
+      document.getElementById("test").innerText = "Robustesse simulée : "+force+" (score "+score+")";
+    }
+
+    // Chargement des actualités cybersécurité
+    async function chargerNews() {
+      try {
+        let url = "https://thehackernews.com/feeds/posts/default?alt=rss";
+        let response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
+        let data = await response.json();
+        let container = document.getElementById("news-container");
+        container.innerHTML = "";
+        data.items.slice(0,5).forEach(article=>{
+          let div=document.createElement("div");
+          div.classList.add("news");
+          div.innerHTML=`<h3><a href="${article.link}" target="_blank">${article.title}</a></h3>
+                         <p>${new Date(article.pubDate).toLocaleDateString()}</p>`;
+          container.appendChild(div);
+        });
+      } catch(error){
+        document.getElementById("news-container").innerHTML="<p>Impossible de charger les actualités 😢</p>";
+      }
+    }
+    chargerNews();
+  </script>
+</body>
+</html>
